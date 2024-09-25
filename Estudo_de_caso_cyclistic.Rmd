@@ -1,0 +1,261 @@
+---
+title: "case_study_Cyclistic"
+author: "Rodrigo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Introdução
+
+Neste estudo, analisaremos o uso das bicicletas compartilhadas da Cyclistic, com foco em como ciclistas casuais e membros anuais utilizam o serviço de maneira diferente. O objetivo é responder às seguintes perguntas para orientar o futuro programa de marketing:
+
+1.  Como os membros anuais e os ciclistas casuais usam as bicicletas da Cyclistic de maneira diferente?
+2.  Por que os ciclistas casuais comprariam assinaturas anuais da Cyclistic?
+3.  Como a Cyclistic pode usar mídia digital para influenciar ciclistas casuais a se tornarem membros?
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Preparação dos Dados
+
+Vamos carregar e preparar os dados de viagens para análise.
+
+## Carregar os pacotes necessários
+
+```{r}
+library(ggplot2) 
+library(dplyr)
+```
+
+## Carregar os dados a serem utilizados
+
+```{r}
+dados_bicicleta2019 <- read.csv("dados_cyclist2019Q1.csv", header = TRUE, sep = ",")
+dados_bicicleta2020 <- read.csv("dados_cyclist2020Q1.csv", header =  TRUE, sep = ",")
+```
+
+## Verificando os conjuntos de dados
+
+```{r}
+summary(dados_bicicleta2019) # exibe a estrutura do conjunto de 2019, além de informar se existem valores nulos(NA)
+```
+
+```{r}
+str(dados_bicicleta2019) # exibe a estrutura do conjunto de 2019
+```
+
+```{r}
+summary(dados_bicicleta2020) # exibe a estrutura do conjunto de 2020, além de informar se existem valores nulos(NA)
+```
+
+```{r}
+str(dados_bicicleta2020) # exibe a estrutura do conjunto de 2020
+```
+
+Após a análise utlizando os comandos str e summary, nota-se a presença de valores faltantes principalmente no conjunto de 2019 Em que dados como gênero e ano de nascimento não estão completos nas colunas respectivas, essa falta levou a conclusão da necessidade da limpeza e exclusão desdes dados faltantes, pois para ser possível traçar o perfil que diferencia um assinante casual de um anual é necessário traçar um perfil de usúario.
+
+## Limpeza dos conjuntos de dados
+
+```{r}
+# Exclui todas as linhas que contêm valores NA de 2019
+cyclistic_data_limpo_2019 <- na.omit(dados_bicicleta2019)
+cyclistic_data_limpo_2020 <- na.omit(dados_bicicleta2020)
+```
+
+## Tratamento dos dados
+
+Embora ambas as tabelas possuam colunas e atributos diferentes, observa-se que há colunas que representam as mesmas informações, mas estão nomeadas de forma diferente ou possuem classes de atributos distintas. Nesta seção do código, realizaremos a normalização dessas colunas, padronizando os nomes e ajustando as classes de dados para garantir consistência.
+
+```{r}
+# Padronizar nomes de colunas no dataset de 2020 para que coincidam com 2019
+cyclistic_data_limpo_2020 <- cyclistic_data_limpo_2020 %>%
+  rename(
+    trip_id = ride_id,        # padronizar o nome da coluna ride_id
+    start_time = started_at,          # Padronizar o nome da coluna 'started_at'
+    end_time = ended_at,              # Padronizar o nome da coluna 'ended_at'
+    usertype = member_casual       # Exemplo para padronizar o nome da coluna de tipo de usuário
+  )
+```
+
+```{r}
+# verificando a alteração dos nome das colunas
+colnames(cyclistic_data_limpo_2020)
+```
+
+Após alterar o nome das colunas, agora iremos normalizar os valores para o tipo de usuário, onde na base de 2019 é subscriber e costumer e para base de 2020 está como member e casual. Aqui iremos normalizar para member e casual, pois são valores mais descritivos.
+
+```{r}
+
+# Alterar valores da coluna usertype usando ifelse()
+cyclistic_data_limpo_2019 <- cyclistic_data_limpo_2019 %>%
+  mutate(
+    usertype = ifelse(usertype == "Subscriber", "member", 
+                      ifelse(usertype == "Customer", "casual", usertype))
+  )
+
+# Verificar as alterações
+table(cyclistic_data_limpo_2020$usertype)
+
+```
+
+Convertendo a coluna "ryde_lenght" para segundos para possibilitar o uso dos valores de duração de cada corrida em cálculos mais a frente no estudo.
+
+```{r}
+library(lubridate)
+cyclistic_data_limpo_2019 <- cyclistic_data_limpo_2019 %>%
+  mutate(ryde_lenght_seconds = as.numeric(hms(ryde_lenght)))  # Convertendo para segundos em 2019
+```
+
+```{r}
+library(lubridate)
+cyclistic_data_limpo_2020 <- cyclistic_data_limpo_2020 %>%
+  mutate(ryde_lenght_seconds = as.numeric(hms(ryde_lenght)))  # Convertendo para segundos em 2019
+```
+
+## Análise: Diferenças no Uso entre Membros Anuais e Ciclistas Casuais
+
+Nesta seção, analisaremos as diferenças de comportamento entre os dois grupos de usuários. Utilizaremos uma variedade de gráficos e técnicas estatísticas para identificar padrões de uso em cada grupo, com o objetivo de converter ciclistas casuais em clientes fidelizados. A análise permitirá insights mais profundos sobre o perfil dos usuários e ajudará na formulação de estratégias eficazes para aumentar a adesão às assinaturas anuais.
+
+### Contagem de viagens por tipo de usuário de 2019
+
+```{r}
+trip_counts_2019 <- cyclistic_data_limpo_2019 %>%
+  group_by(usertype) %>%
+  summarise(count = n())
+```
+
+### Gráfico de barras referente a contagem de viagens por tipo de usuário em 2019
+
+```{r}
+# Código que gera o gráfico referente a contagem por tipo de usúario em 2019
+ggplot(trip_counts_2019, aes(x = usertype, y = count, fill = usertype)) +
+  geom_bar(stat = "identity") +  # Define que a altura da barra será o valor em 'count'
+  labs(title = "Número de Viagens por Tipo de Usuário em 2019", 
+       x = "Tipo de Usuário", y = "Quantidade de Viagens") +
+  scale_fill_manual(values = c("casual" = "pink2", "member" = "lightblue2")) +  # Define as cores para os tipos de usuário
+  theme_minimal()
+
+```
+
+### Contagem de viagens por tipo de usuário de 2020
+
+```{r}
+trip_counts_2020 <- cyclistic_data_limpo_2020 %>%
+  group_by(usertype) %>%
+  summarise(count = n())
+```
+
+### Gráfico de barras referente a contagem de viagens por tipo de usuário em 2020
+
+```{r}
+# Código que gera o gráfico referente a contagem por tipo de usúario em 2020
+ggplot(trip_counts_2020, aes(x = usertype, y = count, fill = usertype)) +
+  geom_bar(stat = "identity") +  # Define que a altura da barra será o valor em 'count'
+  labs(title = "Número de Viagens por Tipo de Usuário em 2020", 
+       x = "Tipo de Usuário", y = "Quantidade de Viagens") +
+  scale_fill_manual(values = c("casual" = "pink2", "member" = "lightblue2")) +  # Define as cores para os tipos de usuário
+  theme_minimal()
+
+```
+
+Analisando os gráficos um por um é perceptível que, o maior número de usuários se concentra em membros, porém de 2019 a 2020 o número de membros casuais aumentou por volta de 8 vezes enquanto enquanto o de membros não cresceu tanto. O que significa que o principal foco da empresa tem que ser voltado em converter os usuários já cadastrados.
+
+### Gráfico de linhas referente ao uso pelos dias da semans em 2019
+
+O gráfico de linhas a seguir ilustra a variação da duração das viagens entre os diferentes tipos de usuários ao longo do tempo. Ele permite observar tendências e padrões de comportamento entre ciclistas casuais e membros anuais, destacando como o uso das bicicletas pode variar de acordo com o perfil do usuário.
+
+```{r}
+usage_by_day <- cyclistic_data_limpo_2019 %>%
+  group_by(usertype, day_of_week) %>%
+  summarise(count = n())
+
+# Criando gráfico de linhas
+ggplot(usage_by_day, aes(x = day_of_week, y = count, color = usertype)) +
+  geom_line(size = 1) +
+  labs(title = "Número de Viagens por Dia da Semana em 2019", x = "Dia da Semana", y = "Quantidade de Viagens") +
+  scale_color_manual(values = c("casual" = "lightpink1", "member" = "lightblue4")) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 1:7, labels = c("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"))
+```
+
+```{r}
+usage_by_day <- cyclistic_data_limpo_2020 %>%
+  group_by(usertype, day_of_week) %>%
+  summarise(count = n())
+
+# Criando gráfico de linhas para o ano de 2020
+ggplot(usage_by_day, aes(x = day_of_week, y = count, color = usertype)) +
+  geom_line(size = 1) +
+  labs(title = "Número de Viagens por Dia da Semana em 2020", x = "Dia da Semana", y = "Quantidade de Viagens") +
+  scale_color_manual(values = c("casual" = "lightpink1", "member" = "lightblue4")) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 1:7, labels = c("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"))
+```
+
+Os gráficos revelam uma clara diferença no comportamento entre os dois grupos de usuários. Os membros anuais fazem uso das bicicletas de forma consistente ao longo de toda a semana, sugerindo que utilizam o serviço como parte de suas rotinas diárias, possivelmente para deslocamentos regulares. Por outro lado, os ciclistas casuais concentram seu uso principalmente nos finais de semana, o que indica que eles utilizam as bicicletas mais para lazer ou atividades recreativas. Motivos para Ciclistas Casuais se Tornarem Membros Aqui exploramos as razões pelas quais ciclistas casuais podem optar por se tornar membros anuais, como custo-benefício e conveniência.
+
+###Gráfico de Barras: Duração Média das Viagens Os gráficos de barras abaixo apresenta a duração média das viagens realizadas por membros anuais e ciclistas casuais. Ele permite uma comparação direta entre os dois grupos, destacando como cada tipo de usuário utiliza o serviço em termos de tempo. Essa visualização é essencial para entender os hábitos de uso, ajudando a identificar se ciclistas casuais tendem a fazer viagens mais longas ou se os membros anuais utilizam o serviço de forma mais eficiente e frequente.
+
+```{r}
+avg_ride_length <- cyclistic_data_limpo_2019 %>%
+  group_by(usertype) %>%
+  summarise(avg_duration = mean(ryde_lenght_seconds, na.rm = TRUE) / 60)
+
+# Gráfico de barras para duração média
+ggplot(avg_ride_length, aes(x = usertype, y = avg_duration, fill = usertype)) +
+  geom_col() +  # Usando geom_col
+  labs(title = "Duração Média das Viagens por Tipo de Usuário em 2019", 
+       x = "Tipo de Usuário", 
+       y = "Duração Média (min)") +
+  scale_fill_manual(values = c("casual" = "lightpink", "member" = "lightblue2")) +
+  theme_minimal()
+```
+
+```{r}
+avg_ride_length <- cyclistic_data_limpo_2020 %>%
+  group_by(usertype) %>%
+  summarise(avg_duration = mean(ryde_lenght_seconds, na.rm = TRUE) / 60)
+
+# Gráfico de barras para duração média
+ggplot(avg_ride_length, aes(x = usertype, y = avg_duration, fill = usertype)) +
+  geom_col() +  # Usando geom_col
+  labs(title = "Duração Média das Viagens por Tipo de Usuário em 2020", 
+       x = "Tipo de Usuário", 
+       y = "Duração Média (min)") +
+  scale_fill_manual(values = c("casual" = "lightpink", "member" = "lightblue2")) +
+  theme_minimal()
+```
+
+##Estratégia de Mídia Digital Finalmente, discutiremos como o uso de mídia digital pode influenciar os ciclistas casuais a se tornarem membros Para isto utilizaremos um Gráfico de Calor sobre o Uso por Mês e Tipo de Usuário.
+
+O gráfico abaixo mostra a sazonalidade no uso das bicicletas para os dois tipos de usuários.
+
+```{r}
+# Carregar a biblioteca lubridate para manipulação de datas
+library(lubridate)
+# Converter a coluna end_time para formato de data e extrair o mês
+cyclistic_data_2019_mes <- cyclistic_data_limpo_2019 %>%
+  mutate(end_time = mdy_hms(end_time),  # Converte para formato de data e hora
+         month = month(end_time, label = TRUE))  # Extrai o mês e converte para formato de rótulo
+
+# Verificar se a conversão deu certo
+head(cyclistic_data_2019_mes)
+
+# Uso das bicicletas por mês e tipo de usuário
+usage_by_month <- cyclistic_data_2019_mes %>%
+  group_by(usertype, month) %>%
+  summarise(count = n())
+
+# Gráfico de calor
+ggplot(usage_by_month, aes(x = month, y = usertype, fill = count)) +
+  geom_tile() +
+  labs(title = "Uso de Bicicletas por Mês e Tipo de Usuário em 2019", 
+       x = "Mês", y = "Tipo de Usuário") +
+  scale_fill_gradient(low = "lightyellow", high = "red1") +
+  theme_minimal()
+```
+
+```{r}
+
+```
