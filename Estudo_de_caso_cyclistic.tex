@@ -1,0 +1,944 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={case\_study\_Cyclistic},
+  pdfauthor={Rodrigo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{case\_study\_Cyclistic}
+\author{Rodrigo}
+\date{2024-09-25}
+
+\begin{document}
+\maketitle
+
+\subsection{Introdução}\label{introduuxe7uxe3o}
+
+Neste estudo, analisaremos o uso das bicicletas compartilhadas da
+Cyclistic, com foco em como ciclistas casuais e membros anuais utilizam
+o serviço de maneira diferente. O objetivo é responder às seguintes
+perguntas para orientar o futuro programa de marketing:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Como os membros anuais e os ciclistas casuais usam as bicicletas da
+  Cyclistic de maneira diferente?
+\item
+  Por que os ciclistas casuais comprariam assinaturas anuais da
+  Cyclistic?
+\item
+  Como a Cyclistic pode usar mídia digital para influenciar ciclistas
+  casuais a se tornarem membros?
+\end{enumerate}
+
+\subsection{Preparação dos Dados}\label{preparauxe7uxe3o-dos-dados}
+
+Vamos carregar e preparar os dados de viagens para análise.
+
+\subsection{Carregar os pacotes
+necessários}\label{carregar-os-pacotes-necessuxe1rios}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2) }
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\subsection{Carregar os dados a serem
+utilizados}\label{carregar-os-dados-a-serem-utilizados}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados\_bicicleta2019 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/rodri/OneDrive/Documentos/estudo{-}bicicleta/Divvy\_Trips\_2019\_Q1.csv"}\NormalTok{,}\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{))}
+\NormalTok{dados\_bicicleta2020 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/rodri/OneDrive/Documentos/estudo{-}bicicleta/Divvy\_Trips\_2020\_Q1.csv"}\NormalTok{, }\AttributeTok{header =}  \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Verificando os conjuntos de
+dados}\label{verificando-os-conjuntos-de-dados}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(dados\_bicicleta2019) }\CommentTok{\# exibe a estrutura do conjunto de 2019, além de informar se existem valores nulos(NA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     trip_id          start_time          end_time             bikeid    
+##  Min.   :21742443   Length:365069      Length:365069      Min.   :   1  
+##  1st Qu.:21848765   Class :character   Class :character   1st Qu.:1777  
+##  Median :21961829   Mode  :character   Mode  :character   Median :3489  
+##  Mean   :21960872                                         Mean   :3429  
+##  3rd Qu.:22071823                                         3rd Qu.:5157  
+##  Max.   :22178528                                         Max.   :6471  
+##                                                                         
+##  tripduration       from_station_id from_station_name  to_station_id  
+##  Length:365069      Min.   :  2.0   Length:365069      Min.   :  2.0  
+##  Class :character   1st Qu.: 76.0   Class :character   1st Qu.: 76.0  
+##  Mode  :character   Median :170.0   Mode  :character   Median :168.0  
+##                     Mean   :198.1                      Mean   :198.6  
+##                     3rd Qu.:287.0                      3rd Qu.:287.0  
+##                     Max.   :665.0                      Max.   :665.0  
+##                                                                       
+##  to_station_name      usertype            gender            birthyear    
+##  Length:365069      Length:365069      Length:365069      Min.   :1900   
+##  Class :character   Class :character   Class :character   1st Qu.:1975   
+##  Mode  :character   Mode  :character   Mode  :character   Median :1985   
+##                                                           Mean   :1982   
+##                                                           3rd Qu.:1990   
+##                                                           Max.   :2003   
+##                                                           NA's   :18023  
+##  ryde_lenght         day_of_week   
+##  Length:365069      Min.   :1.000  
+##  Class :character   1st Qu.:3.000  
+##  Mode  :character   Median :4.000  
+##                     Mean   :4.144  
+##                     3rd Qu.:6.000  
+##                     Max.   :7.000  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(dados\_bicicleta2019) }\CommentTok{\# exibe a estrutura do conjunto de 2019}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    365069 obs. of  14 variables:
+##  $ trip_id          : int  21742443 21742444 21742445 21742446 21742447 21742448 21742449 21742450 21742451 21742452 ...
+##  $ start_time       : chr  "1/1/2019 0:04" "1/1/2019 0:08" "1/1/2019 0:13" "1/1/2019 0:13" ...
+##  $ end_time         : chr  "1/1/2019 0:11" "1/1/2019 0:15" "1/1/2019 0:27" "1/1/2019 0:43" ...
+##  $ bikeid           : int  2167 4386 1524 252 1170 2437 2708 2796 6205 3939 ...
+##  $ tripduration     : chr  "390" "441" "829" "1,783.00" ...
+##  $ from_station_id  : int  199 44 15 123 173 98 98 211 150 268 ...
+##  $ from_station_name: chr  "Wabash Ave & Grand Ave" "State St & Randolph St" "Racine Ave & 18th St" "California Ave & Milwaukee Ave" ...
+##  $ to_station_id    : int  84 624 644 176 35 49 49 142 148 141 ...
+##  $ to_station_name  : chr  "Milwaukee Ave & Grand Ave" "Dearborn St & Van Buren St (*)" "Western Ave & Fillmore St (*)" "Clark St & Elm St" ...
+##  $ usertype         : chr  "Subscriber" "Subscriber" "Subscriber" "Subscriber" ...
+##  $ gender           : chr  "Male" "Female" "Female" "Male" ...
+##  $ birthyear        : int  1989 1990 1994 1993 1994 1983 1984 1990 1995 1996 ...
+##  $ ryde_lenght      : chr  "12:07:00 AM" "12:07:00 AM" "12:14:00 AM" "12:30:00 AM" ...
+##  $ day_of_week      : int  3 3 3 3 3 3 3 3 3 3 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(dados\_bicicleta2020) }\CommentTok{\# exibe a estrutura do conjunto de 2020, além de informar se existem valores nulos(NA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    ride_id          rideable_type       started_at          ended_at        
+##  Length:426887      Length:426887      Length:426887      Length:426887     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  start_station_name start_station_id end_station_name   end_station_id 
+##  Length:426887      Min.   :  2.0    Length:426887      Min.   :  2.0  
+##  Class :character   1st Qu.: 77.0    Class :character   1st Qu.: 77.0  
+##  Mode  :character   Median :176.0    Mode  :character   Median :175.0  
+##                     Mean   :209.8                       Mean   :209.3  
+##                     3rd Qu.:298.0                       3rd Qu.:297.0  
+##                     Max.   :675.0                       Max.   :675.0  
+##                                                         NA's   :1      
+##    start_lat       start_lng         end_lat         end_lng      
+##  Min.   :41.74   Min.   :-87.77   Min.   :41.74   Min.   :-87.77  
+##  1st Qu.:41.88   1st Qu.:-87.66   1st Qu.:41.88   1st Qu.:-87.66  
+##  Median :41.89   Median :-87.64   Median :41.89   Median :-87.64  
+##  Mean   :41.90   Mean   :-87.64   Mean   :41.90   Mean   :-87.64  
+##  3rd Qu.:41.92   3rd Qu.:-87.63   3rd Qu.:41.92   3rd Qu.:-87.63  
+##  Max.   :42.06   Max.   :-87.55   Max.   :42.06   Max.   :-87.55  
+##                                   NA's   :1       NA's   :1       
+##  member_casual      ryde_lenght         day_of_week   
+##  Length:426887      Length:426887      Min.   :1.000  
+##  Class :character   Class :character   1st Qu.:2.000  
+##  Mode  :character   Mode  :character   Median :4.000  
+##                                        Mean   :3.857  
+##                                        3rd Qu.:5.000  
+##                                        Max.   :7.000  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(dados\_bicicleta2020) }\CommentTok{\# exibe a estrutura do conjunto de 2020}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    426887 obs. of  15 variables:
+##  $ ride_id           : chr  "EACB19130B0CDA4A" "8FED874C809DC021" "789F3C21E472CA96" "C9A388DAC6ABF313" ...
+##  $ rideable_type     : chr  "docked_bike" "docked_bike" "docked_bike" "docked_bike" ...
+##  $ started_at        : chr  "2020-01-21 20:06:59" "2020-01-30 14:22:39" "2020-01-09 19:29:26" "2020-01-06 16:17:07" ...
+##  $ ended_at          : chr  "2020-01-21 20:14:30" "2020-01-30 14:26:22" "2020-01-09 19:32:17" "2020-01-06 16:25:56" ...
+##  $ start_station_name: chr  "Western Ave & Leland Ave" "Clark St & Montrose Ave" "Broadway & Belmont Ave" "Clark St & Randolph St" ...
+##  $ start_station_id  : int  239 234 296 51 66 212 96 96 212 38 ...
+##  $ end_station_name  : chr  "Clark St & Leland Ave" "Southport Ave & Irving Park Rd" "Wilton Ave & Belmont Ave" "Fairbanks Ct & Grand Ave" ...
+##  $ end_station_id    : int  326 318 117 24 212 96 212 212 96 100 ...
+##  $ start_lat         : num  42 42 41.9 41.9 41.9 ...
+##  $ start_lng         : num  -87.7 -87.7 -87.6 -87.6 -87.6 ...
+##  $ end_lat           : num  42 42 41.9 41.9 41.9 ...
+##  $ end_lng           : num  -87.7 -87.7 -87.7 -87.6 -87.6 ...
+##  $ member_casual     : chr  "member" "member" "member" "member" ...
+##  $ ryde_lenght       : chr  "12:07:31 AM" "12:03:43 AM" "12:02:51 AM" "12:08:49 AM" ...
+##  $ day_of_week       : int  3 5 5 2 5 6 6 6 6 6 ...
+\end{verbatim}
+
+Após a análise utlizando os comandos str e summary, nota-se a presença
+de valores faltantes principalmente no conjunto de 2019 Em que dados
+como gênero e ano de nascimento não estão completos nas colunas
+respectivas, essa falta levou a conclusão da necessidade da limpeza e
+exclusão desdes dados faltantes, pois para ser possível traçar o perfil
+que diferencia um assinante casual de um anual é necessário traçar um
+perfil de usúario.
+
+\subsection{Limpeza dos conjuntos de
+dados}\label{limpeza-dos-conjuntos-de-dados}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Exclui todas as linhas que contêm valores NA de 2019}
+\NormalTok{cyclistic\_data\_limpo\_2019 }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(dados\_bicicleta2019)}
+\NormalTok{cyclistic\_data\_limpo\_2020 }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(dados\_bicicleta2020)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Transformação dos
+dados}\label{transformauxe7uxe3o-dos-dados}
+
+Embora ambas as tabelas possuam colunas e atributos diferentes,
+observa-se que há colunas que representam as mesmas informações, mas
+estão nomeadas de forma diferente ou possuem classes de atributos
+distintas. Nesta seção do código, realizaremos a normalização dessas
+colunas, padronizando os nomes e ajustando as classes de dados para
+garantir consistência.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Padronizar nomes de colunas no dataset de 2020 para que coincidam com 2019}
+\NormalTok{cyclistic\_data\_limpo\_2020 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{trip\_id =}\NormalTok{ ride\_id,        }\CommentTok{\# padronizar o nome da coluna ride\_id}
+    \AttributeTok{start\_time =}\NormalTok{ started\_at,          }\CommentTok{\# Padronizar o nome da coluna \textquotesingle{}started\_at\textquotesingle{}}
+    \AttributeTok{end\_time =}\NormalTok{ ended\_at,              }\CommentTok{\# Padronizar o nome da coluna \textquotesingle{}ended\_at\textquotesingle{}}
+    \AttributeTok{usertype =}\NormalTok{ member\_casual       }\CommentTok{\# Exemplo para padronizar o nome da coluna de tipo de usuário}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# verificando a alteração dos nome das colunas}
+\FunctionTok{colnames}\NormalTok{(cyclistic\_data\_limpo\_2020)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "trip_id"            "rideable_type"      "start_time"        
+##  [4] "end_time"           "start_station_name" "start_station_id"  
+##  [7] "end_station_name"   "end_station_id"     "start_lat"         
+## [10] "start_lng"          "end_lat"            "end_lng"           
+## [13] "usertype"           "ryde_lenght"        "day_of_week"
+\end{verbatim}
+
+Após alterar o nome das colunas, agora iremos normalizar os valores para
+o tipo de usuário, onde na base de 2019 é subscriber e costumer e para
+base de 2020 está como member e casual. Aqui iremos normalizar para
+member e casual, pois são valores mais descritivos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Alterar valores da coluna usertype usando ifelse()}
+\NormalTok{cyclistic\_data\_limpo\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{usertype =} \FunctionTok{ifelse}\NormalTok{(usertype }\SpecialCharTok{==} \StringTok{"Subscriber"}\NormalTok{, }\StringTok{"member"}\NormalTok{, }
+                      \FunctionTok{ifelse}\NormalTok{(usertype }\SpecialCharTok{==} \StringTok{"Customer"}\NormalTok{, }\StringTok{"casual"}\NormalTok{, usertype))}
+\NormalTok{  )}
+
+\CommentTok{\# Verificar as alterações}
+\FunctionTok{table}\NormalTok{(cyclistic\_data\_limpo\_2020}\SpecialCharTok{$}\NormalTok{usertype)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## casual member 
+##  48479 378407
+\end{verbatim}
+
+Convertendo a coluna ``ryde\_lenght'' para segundos para possibilitar o
+uso dos valores de duração de cada corrida em cálculos mais a frente no
+estudo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cyclistic\_data\_limpo\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ryde\_lenght\_seconds =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{hms}\NormalTok{(ryde\_lenght)))  }\CommentTok{\# Convertendo para segundos em 2019}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lubridate)}
+\NormalTok{cyclistic\_data\_limpo\_2020 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ryde\_lenght\_seconds =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{hms}\NormalTok{(ryde\_lenght)))  }\CommentTok{\# Convertendo para segundos em 2020}
+\end{Highlighting}
+\end{Shaded}
+
+Manipulação da coluna end\_time para recolher os meses em que as
+corridas foram registradas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Carregar a biblioteca lubridate para manipulação de datas}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\CommentTok{\# Converter a coluna end\_time para formato de data e extrair o mês}
+\NormalTok{cyclistic\_data\_limpo\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{end\_time =} \FunctionTok{mdy\_hm}\NormalTok{(end\_time),  }\CommentTok{\# Converte para o formato de data e hora}
+         \AttributeTok{month =} \FunctionTok{month}\NormalTok{(end\_time, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{))  }\CommentTok{\# Extrai o mês}
+
+\CommentTok{\# Verificar se a conversão deu certo}
+\FunctionTok{head}\NormalTok{(cyclistic\_data\_limpo\_2019)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    trip_id    start_time            end_time bikeid tripduration
+## 1 21742443 1/1/2019 0:04 2019-01-01 00:11:00   2167          390
+## 2 21742444 1/1/2019 0:08 2019-01-01 00:15:00   4386          441
+## 3 21742445 1/1/2019 0:13 2019-01-01 00:27:00   1524          829
+## 4 21742446 1/1/2019 0:13 2019-01-01 00:43:00    252     1,783.00
+## 5 21742447 1/1/2019 0:14 2019-01-01 00:20:00   1170          364
+## 6 21742448 1/1/2019 0:15 2019-01-01 00:19:00   2437          216
+##   from_station_id                   from_station_name to_station_id
+## 1             199              Wabash Ave & Grand Ave            84
+## 2              44              State St & Randolph St           624
+## 3              15                Racine Ave & 18th St           644
+## 4             123      California Ave & Milwaukee Ave           176
+## 5             173 Mies van der Rohe Way & Chicago Ave            35
+## 6              98          LaSalle St & Washington St            49
+##                  to_station_name usertype gender birthyear ryde_lenght
+## 1      Milwaukee Ave & Grand Ave   member   Male      1989 12:07:00 AM
+## 2 Dearborn St & Van Buren St (*)   member Female      1990 12:07:00 AM
+## 3  Western Ave & Fillmore St (*)   member Female      1994 12:14:00 AM
+## 4              Clark St & Elm St   member   Male      1993 12:30:00 AM
+## 5        Streeter Dr & Grand Ave   member   Male      1994 12:06:00 AM
+## 6        Dearborn St & Monroe St   member Female      1983 12:04:00 AM
+##   day_of_week ryde_lenght_seconds month
+## 1           3               43620   Jan
+## 2           3               43620   Jan
+## 3           3               44040   Jan
+## 4           3               45000   Jan
+## 5           3               43560   Jan
+## 6           3               43440   Jan
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Carregar a biblioteca lubridate para manipulação de datas}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\CommentTok{\# Converter a coluna end\_time para formato de data e extrair o mês}
+\NormalTok{cyclistic\_data\_limpo\_2020 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{end\_time =} \FunctionTok{ymd\_hms}\NormalTok{(end\_time),  }\CommentTok{\# Converte para o formato de data e hora}
+         \AttributeTok{month =} \FunctionTok{month}\NormalTok{(end\_time, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{))  }\CommentTok{\# Extrai o mês}
+
+\CommentTok{\# Verificar se a conversão deu certo}
+\FunctionTok{head}\NormalTok{(cyclistic\_data\_limpo\_2020)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            trip_id rideable_type          start_time            end_time
+## 1 EACB19130B0CDA4A   docked_bike 2020-01-21 20:06:59 2020-01-21 20:14:30
+## 2 8FED874C809DC021   docked_bike 2020-01-30 14:22:39 2020-01-30 14:26:22
+## 3 789F3C21E472CA96   docked_bike 2020-01-09 19:29:26 2020-01-09 19:32:17
+## 4 C9A388DAC6ABF313   docked_bike 2020-01-06 16:17:07 2020-01-06 16:25:56
+## 5 943BC3CBECCFD662   docked_bike  2020-01-30 8:37:16 2020-01-30 08:42:48
+## 6 6D9C8A6938165C11   docked_bike 2020-01-10 12:33:05 2020-01-10 12:37:54
+##         start_station_name start_station_id               end_station_name
+## 1 Western Ave & Leland Ave              239          Clark St & Leland Ave
+## 2  Clark St & Montrose Ave              234 Southport Ave & Irving Park Rd
+## 3   Broadway & Belmont Ave              296       Wilton Ave & Belmont Ave
+## 4   Clark St & Randolph St               51       Fairbanks Ct & Grand Ave
+## 5     Clinton St & Lake St               66          Wells St & Hubbard St
+## 6    Wells St & Hubbard St              212    Desplaines St & Randolph St
+##   end_station_id start_lat start_lng end_lat  end_lng usertype ryde_lenght
+## 1            326   41.9665  -87.6884 41.9671 -87.6674   member 12:07:31 AM
+## 2            318   41.9616  -87.6660 41.9542 -87.6644   member 12:03:43 AM
+## 3            117   41.9401  -87.6455 41.9402 -87.6530   member 12:02:51 AM
+## 4             24   41.8846  -87.6319 41.8918 -87.6206   member 12:08:49 AM
+## 5            212   41.8856  -87.6418 41.8899 -87.6343   member 12:05:32 AM
+## 6             96   41.8899  -87.6343 41.8846 -87.6446   member 12:04:49 AM
+##   day_of_week ryde_lenght_seconds month
+## 1           3               43651   Jan
+## 2           5               43423   Jan
+## 3           5               43371   Jan
+## 4           2               43729   Jan
+## 5           5               43532   Jan
+## 6           6               43489   Jan
+\end{verbatim}
+
+\subsection{Análise: Diferenças no Uso entre Membros Anuais e Ciclistas
+Casuais}\label{anuxe1lise-diferenuxe7as-no-uso-entre-membros-anuais-e-ciclistas-casuais}
+
+Nesta seção, analisaremos as diferenças de comportamento entre os dois
+grupos de usuários. Utilizaremos uma variedade de gráficos e técnicas
+estatísticas para identificar padrões de uso em cada grupo, com o
+objetivo de converter ciclistas casuais em clientes fidelizados.
+
+A análise permitirá insights mais profundos sobre o perfil dos usuários
+e ajudará na formulação de estratégias eficazes para aumentar a adesão
+às assinaturas anuais.
+
+\subsubsection{Contagem de viagens por tipo de usuário de
+2019}\label{contagem-de-viagens-por-tipo-de-usuuxe1rio-de-2019}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trip\_counts\_2019 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Gráfico de barras referente a contagem de viagens por
+tipo de usuário em
+2019}\label{gruxe1fico-de-barras-referente-a-contagem-de-viagens-por-tipo-de-usuuxe1rio-em-2019}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Código que gera o gráfico referente a contagem por tipo de usúario em 2019}
+\FunctionTok{ggplot}\NormalTok{(trip\_counts\_2019, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ usertype, }\AttributeTok{y =}\NormalTok{ count, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Define que a altura da barra será o valor em \textquotesingle{}count\textquotesingle{}}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Número de Viagens por Tipo de Usuário em 2019"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Tipo de Usuário"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Quantidade de Viagens"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"pink2"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue2"}\NormalTok{)) }\SpecialCharTok{+}  \CommentTok{\# Define as cores para os tipos de usuário}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\subsubsection{Contagem de viagens por tipo de usuário de
+2020}\label{contagem-de-viagens-por-tipo-de-usuuxe1rio-de-2020}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trip\_counts\_2020 }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Gráfico de barras referente a contagem de viagens por
+tipo de usuário em
+2020}\label{gruxe1fico-de-barras-referente-a-contagem-de-viagens-por-tipo-de-usuuxe1rio-em-2020}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Código que gera o gráfico referente a contagem por tipo de usúario em 2020}
+\FunctionTok{ggplot}\NormalTok{(trip\_counts\_2020, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ usertype, }\AttributeTok{y =}\NormalTok{ count, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Define que a altura da barra será o valor em \textquotesingle{}count\textquotesingle{}}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Número de Viagens por Tipo de Usuário em 2020"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Tipo de Usuário"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Quantidade de Viagens"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"pink2"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue2"}\NormalTok{)) }\SpecialCharTok{+}  \CommentTok{\# Define as cores para os tipos de usuário}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+Analisando os gráficos um por um é perceptível que, o maior número de
+usuários se concentra em membros, porém de 2019 a 2020 o número de
+membros casuais aumentou por volta de 8 vezes enquanto enquanto o de
+membros não cresceu tanto. O que significa que o principal foco da
+empresa tem que ser voltado em converter os usuários já cadastrados.
+
+\subsubsection{Gráfico de linhas referente ao uso pelos dias da semans
+em
+2019}\label{gruxe1fico-de-linhas-referente-ao-uso-pelos-dias-da-semans-em-2019}
+
+O gráfico de linhas a seguir ilustra a variação da duração das viagens
+entre os diferentes tipos de usuários ao longo do tempo. Ele permite
+observar tendências e padrões de comportamento entre ciclistas casuais e
+membros anuais, destacando como o uso das bicicletas pode variar de
+acordo com o perfil do usuário.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{usage\_by\_day }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype, day\_of\_week) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'usertype'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Criando gráfico de linhas}
+\FunctionTok{ggplot}\NormalTok{(usage\_by\_day, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ day\_of\_week, }\AttributeTok{y =}\NormalTok{ count, }\AttributeTok{color =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Número de Viagens por Dia da Semana em 2019"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dia da Semana"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Quantidade de Viagens"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"lightpink1"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue4"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Dom"}\NormalTok{, }\StringTok{"Seg"}\NormalTok{, }\StringTok{"Ter"}\NormalTok{, }\StringTok{"Qua"}\NormalTok{, }\StringTok{"Qui"}\NormalTok{, }\StringTok{"Sex"}\NormalTok{, }\StringTok{"Sáb"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{usage\_by\_day }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype, day\_of\_week) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'usertype'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Criando gráfico de linhas para o ano de 2020}
+\FunctionTok{ggplot}\NormalTok{(usage\_by\_day, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ day\_of\_week, }\AttributeTok{y =}\NormalTok{ count, }\AttributeTok{color =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Número de Viagens por Dia da Semana em 2020"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dia da Semana"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Quantidade de Viagens"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"lightpink1"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue4"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Dom"}\NormalTok{, }\StringTok{"Seg"}\NormalTok{, }\StringTok{"Ter"}\NormalTok{, }\StringTok{"Qua"}\NormalTok{, }\StringTok{"Qui"}\NormalTok{, }\StringTok{"Sex"}\NormalTok{, }\StringTok{"Sáb"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+Os gráficos revelam uma clara diferença no comportamento entre os dois
+grupos de usuários. Os membros anuais fazem uso das bicicletas de forma
+consistente ao longo de toda a semana, sugerindo que utilizam o serviço
+como parte de suas rotinas diárias, possivelmente para deslocamentos
+regulares.
+
+Por outro lado, os ciclistas casuais concentram seu uso principalmente
+nos finais de semana, o que indica que eles utilizam as bicicletas mais
+para lazer ou atividades recreativas. Motivos para Ciclistas Casuais se
+Tornarem Membros Aqui exploramos as razões pelas quais ciclistas casuais
+podem optar por se tornar membros anuais, como custo-benefício e
+conveniência.
+
+\#\#\#Gráfico de Barras: Duração Média das Viagens Os gráficos de barras
+abaixo apresenta a duração média das viagens realizadas por membros
+anuais e ciclistas casuais. Ele permite uma comparação direta entre os
+dois grupos, destacando como cada tipo de usuário utiliza o serviço em
+termos de tempo. Essa visualização é essencial para entender os hábitos
+de uso, ajudando a identificar se ciclistas casuais tendem a fazer
+viagens mais longas ou se os membros anuais utilizam o serviço de forma
+mais eficiente e frequente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg\_ride\_length }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_duration =} \FunctionTok{mean}\NormalTok{(ryde\_lenght\_seconds, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{/} \DecValTok{60}\NormalTok{)}
+
+\CommentTok{\# Gráfico de barras para duração média}
+\FunctionTok{ggplot}\NormalTok{(avg\_ride\_length, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ usertype, }\AttributeTok{y =}\NormalTok{ avg\_duration, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}  \CommentTok{\# Usando geom\_col}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Duração Média das Viagens por Tipo de Usuário em 2019"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Tipo de Usuário"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Duração Média (min)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"lightpink"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue2"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg\_ride\_length }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_duration =} \FunctionTok{mean}\NormalTok{(ryde\_lenght\_seconds, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{/} \DecValTok{60}\NormalTok{)}
+
+\CommentTok{\# Gráfico de barras para duração média}
+\FunctionTok{ggplot}\NormalTok{(avg\_ride\_length, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ usertype, }\AttributeTok{y =}\NormalTok{ avg\_duration, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}  \CommentTok{\# Usando geom\_col}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Duração Média das Viagens por Tipo de Usuário em 2020"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Tipo de Usuário"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Duração Média (min)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"casual"} \OtherTok{=} \StringTok{"lightpink"}\NormalTok{, }\StringTok{"member"} \OtherTok{=} \StringTok{"lightblue2"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+Agora vamos gerar um gráfico que apresenta as 10 estações mais populares
+entre os usuários. Com essa análise, será possível identificar as áreas
+de maior concentração de clientes e investigar as razões que levam à
+alta demanda nesses locais.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{station\_usage }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(from\_station\_name, usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total\_trips =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'from_station_name'. You can override using
+## the `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filtrar as 10 estações mais populares}
+\NormalTok{top\_stations }\OtherTok{\textless{}{-}}\NormalTok{ station\_usage }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(from\_station\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total =} \FunctionTok{sum}\NormalTok{(total\_trips)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{10}\NormalTok{, total)}
+
+\CommentTok{\# Filtrar os dados para essas estações}
+\NormalTok{station\_usage\_top }\OtherTok{\textless{}{-}}\NormalTok{ station\_usage }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(from\_station\_name }\SpecialCharTok{\%in\%}\NormalTok{ top\_stations}\SpecialCharTok{$}\NormalTok{from\_station\_name)}
+
+\CommentTok{\# Criar o gráfico}
+\FunctionTok{ggplot}\NormalTok{(station\_usage\_top, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(from\_station\_name, }\SpecialCharTok{{-}}\NormalTok{total\_trips), }\AttributeTok{y =}\NormalTok{ total\_trips, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Top 10 Estações Mais Utilizadas por Tipo de Membro em 2019"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Estação"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Total de Viagens"}\NormalTok{,}
+       \AttributeTok{fill =} \StringTok{"Tipo de Membro"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{station\_usage }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(start\_station\_name, usertype) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total\_trips =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'start_station_name'. You can override
+## using the `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filtrar as 10 estações mais populares}
+\NormalTok{top\_stations }\OtherTok{\textless{}{-}}\NormalTok{ station\_usage }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(start\_station\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{total =} \FunctionTok{sum}\NormalTok{(total\_trips)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{10}\NormalTok{, total)}
+
+\CommentTok{\# Filtrar os dados para essas estações}
+\NormalTok{station\_usage\_top }\OtherTok{\textless{}{-}}\NormalTok{ station\_usage }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(start\_station\_name }\SpecialCharTok{\%in\%}\NormalTok{ top\_stations}\SpecialCharTok{$}\NormalTok{start\_station\_name)}
+
+\CommentTok{\# Criar o gráfico}
+\FunctionTok{ggplot}\NormalTok{(station\_usage\_top, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(start\_station\_name, }\SpecialCharTok{{-}}\NormalTok{total\_trips), }\AttributeTok{y =}\NormalTok{ total\_trips, }\AttributeTok{fill =}\NormalTok{ usertype)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Top 10 Estações Mais Utilizadas por Tipo de Membro em 2020"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Estação"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Total de Viagens"}\NormalTok{,}
+       \AttributeTok{fill =} \StringTok{"Tipo de Membro"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\subsubsection{Estratégia de Mídia
+Digital}\label{estratuxe9gia-de-muxeddia-digital}
+
+Finalmente, discutiremos como o uso de mídia digital pode influenciar os
+ciclistas casuais a se tornarem membros Para isto utilizaremos um
+Gráfico de Calor sobre o Uso por Mês e Tipo de Usuário.
+
+O gráfico abaixo mostra a sazonalidade no uso das bicicletas para os
+dois tipos de usuários.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Uso das bicicletas por mês e tipo de usuário}
+\NormalTok{usage\_by\_month }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2019 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype, month) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'usertype'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfico de calo}
+\FunctionTok{ggplot}\NormalTok{(usage\_by\_month, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ month, }\AttributeTok{y =}\NormalTok{ usertype, }\AttributeTok{fill =}\NormalTok{ count)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Uso de Bicicletas por tipo de usúario nos primeiros meses de 2020"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Mês"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Tipo de Usuário"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"lightyellow"}\NormalTok{, }\AttributeTok{high =} \StringTok{"red1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))  }\CommentTok{\# Melhorar a legibilidade dos rótulos do eixo X}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+A análise do gráfico revela uma queda significativa no uso do serviço
+por membros casuais a partir de abril, sugerindo uma possível
+desmotivação ou desconexão com o serviço oferecido. Essa tendência pode
+indicar que, após o início do ano, os usuários casuais não estão
+percebendo os benefícios ou a conveniência de utilizar as bicicletas, o
+que pode ser exacerbado pela falta de engajamento e estratégias de
+comunicação.
+
+Para reverter essa situação, uma estratégia eficaz seria a implementação
+de campanhas direcionadas nas mídias digitais. Isso pode incluir o uso
+de anúncios em redes sociais, onde se possa destacar promoções sazonais,
+benefícios exclusivos para membros casuais e testemunhos de usuários
+satisfeitos. Além disso, a criação de conteúdo relevante, como dicas de
+roteiros e eventos comunitários, pode ajudar a aumentar a
+conscientização e a motivação para utilizar o serviço. O engajamento por
+meio de plataformas digitais pode não apenas revitalizar o interesse dos
+membros casuais, mas também fortalecer a marca e fomentar uma comunidade
+de usuários mais ativa e conectada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Uso das bicicletas por mês e tipo de usuário}
+\NormalTok{usage\_by\_month }\OtherTok{\textless{}{-}}\NormalTok{ cyclistic\_data\_limpo\_2020 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(usertype, month) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'usertype'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfico de calo}
+\FunctionTok{ggplot}\NormalTok{(usage\_by\_month, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ month, }\AttributeTok{y =}\NormalTok{ usertype, }\AttributeTok{fill =}\NormalTok{ count)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Uso de Bicicletas por tipo de usúario nos primeiros meses de 2020"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"Mês"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Tipo de Usuário"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"lightyellow"}\NormalTok{, }\AttributeTok{high =} \StringTok{"red1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))  }\CommentTok{\# Melhorar a legibilidade dos rótulos do eixo X}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Estudo_de_caso_cyclistic_files/figure-latex/unnamed-chunk-26-1.pdf}
+Já analisando os primeiros 5 meses de 2020, é possível perceber dois
+principais fatos, sendo que osmembros casuais estão presentes em todos
+os meses algo que não aconteceu em 2019 e que os principais meses que o
+serviço é usado são os 3 primeiros meses do ano. Com isso seria
+interessante para a empresa investir em divulgações durante os meses em
+baixa para que assim mais membros utilizem o serviço.
+
+\subsection{Conclusão}\label{conclusuxe3o}
+
+Os gráficos e análises apresentados destacam de forma clara as
+diferenças de comportamento entre ciclistas casuais e membros anuais,
+revelando padrões de uso distintos. As descobertas sugerem uma
+oportunidade significativa para converter ciclistas casuais em membros
+anuais por meio de campanhas digitais direcionadas, com foco na
+conveniência e no custo-benefício do plano de assinatura.
+
+As perguntas iniciais do projeto foram devidamente abordadas ao longo da
+análise. Primeiramente, identificamos como os ciclistas casuais e os
+membros anuais utilizam as bicicletas de maneira diferente. Enquanto os
+membros anuais fazem uso das bicicletas de forma consistente ao longo da
+semana, os ciclistas casuais concentram suas viagens nos finais de
+semana, sugerindo um uso mais recreativo.
+
+Em segundo lugar, foi possível identificar que campanhas digitais
+focadas em conveniência e custo-benefício têm grande potencial para
+converter ciclistas casuais em membros anuais, especialmente em estações
+estratégicas como a `HQ QR'. Por fim, exploramos como a mídia digital
+pode ser utilizada para influenciar esse comportamento, apontando
+regiões e períodos de alta demanda que podem ser alvos ideais para
+campanhas de marketing personalizadas. Com isso, todas as perguntas
+iniciais foram respondidas de forma clara e objetiva.
+
+Ao explorar essas regiões específicas com comunicação direcionada, a
+Cyclistic pode aumentar suas chances de conversão, incentivando os
+usuários casuais a optarem pela assinatura, com base em suas
+necessidades de mobilidade e economia a longo prazo.
+
+Em resumo, o estudo revela que, com estratégias bem planejadas e
+baseadas nos dados, há um potencial significativo para aumentar a
+fidelização e a base de membros anuais, impulsionando o crescimento
+sustentável da Cyclistic.
+
+\end{document}
