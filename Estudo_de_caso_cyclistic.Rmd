@@ -222,7 +222,7 @@ ggplot(avg_ride_length, aes(x = usertype, y = avg_duration, fill = usertype)) +
   geom_col() +  # Usando geom_col
   labs(title = "Duração Média das Viagens por Tipo de Usuário em 2020", 
        x = "Tipo de Usuário", 
-       y = "Duração Média (min)") +
+       y = "Duração Média (sec)") +
   scale_fill_manual(values = c("casual" = "lightpink", "member" = "lightblue2")) +
   theme_minimal()
 ```
